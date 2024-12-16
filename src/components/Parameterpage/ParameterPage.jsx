@@ -19,13 +19,18 @@ export const ParameterPage = () => {
     const hasEmptyFields = Object.values(values).some(
       (val) => val === '' || (typeof val === 'boolean' && val === undefined)
     )
+    const currentDate = new Date().toLocaleString()
 
     if (hasEmptyFields) {
       message.error('Please fill in all fields.')
       return
     }
 
-    if (rowDefs.some((item) => item.model === values.model)) {
+    if (
+      rowDefs.some(
+        (item) => item.model.toLowerCase() === values.model.toLowerCase()
+      )
+    ) {
       message.error('This car model already exists.')
       return
     }
@@ -35,8 +40,12 @@ export const ParameterPage = () => {
         newColDefs.push({ field: key })
       }
     })
+    if (!newColDefs.find((item) => item.field === 'date')) {
+      newColDefs.push({ field: 'date' })
+    }
+    const valuesWithDate = { ...values, date: currentDate }
 
-    const newRowDefs = [...rowDefs, values]
+    const newRowDefs = [...rowDefs, valuesWithDate]
 
     setRowDefs(newRowDefs)
     setColDefs(newColDefs)

@@ -61,13 +61,18 @@ export const handlers = [
 
     if (user) {
       const token = uuidv4()
+
+      if (user.token) {
+        delete user.token
+      }
+
       users[user.userId].token = token
       saveUsersToLocalStorage()
       return new HttpResponse(JSON.stringify({ token }), {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Set-Cookie': `token=${token}; Max-Age=3600; Secure; HttpOnly`,
+          'Set-Cookie': `token=${token}; Max-Age=20; Secure; HttpOnly`,
         },
       })
     } else {

@@ -16,13 +16,13 @@ export const Content = () => {
   }
 
   const [rowDefs, setRowDefs] = useState([])
-  const [colDefs, setColDefs] = useState()
-
+  const [colDefs, setColDefs] = useState([])
   useEffect(() => {
-    const col = JSON.parse(localStorage.getItem('parameters'))
-    setColDefs(col.col)
-    const row = JSON.parse(localStorage.getItem('parameters'))
-    setRowDefs(row.row)
+    const parameters = JSON.parse(localStorage.getItem('parameters'))
+    if (parameters) {
+      setColDefs(parameters.col)
+      setRowDefs(parameters.row)
+    }
   }, [])
 
   const pagination = true
