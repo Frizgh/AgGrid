@@ -307,10 +307,10 @@ async function respondWithMock(response) {
 }
 
 let options = {}
-if (location.hostname === 'username.github.io') {
+if (location.hostname === 'frizgh.github.io') {
   options = {
     serviceWorker: {
-      url: '/repo-name/mockServiceWorker.js',
+      url: '/AgGrid/mockServiceWorker.js',
     },
   }
 }
